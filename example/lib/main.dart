@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:smart_text_search/smart_text_search.dart';
+import 'package:smart_text_search/smart_text_search/sort_by_similarity.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,35 +13,67 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _smartTextSearchPlugin = SmartTextSearch();
+  final TextEditingController _searchTextController = TextEditingController();
+
+  final List<String> items = [
+    'Apple',
+    'Banana',
+    'Orange',
+    'Strawberry',
+    'Grapes',
+    'Watermelon',
+    'Mango',
+    'Pineapple',
+    'Kiwi',
+    'Peach',
+    'Pear',
+    'Cherry',
+    'Blueberry',
+    'Raspberry',
+    'Lemon',
+    'Lime',
+    'Avocado',
+    'Coconut',
+    'Pomegranate',
+    'Blackberry',
+    'Cantaloupe',
+    'Mandarin',
+    'Papaya',
+    'Apricot',
+    'Guava',
+    'Passion Fruit',
+    'Plum',
+    'Fig',
+    'Lychee',
+    'Cranberry',
+    'Dragon Fruit',
+    'Kiwifruit',
+    'Star Fruit',
+    'Persimmon',
+    'Nectarine',
+    'Tangerine',
+    'Grapefruit',
+    'Jackfruit',
+    'Mulberry',
+    'Pawpaw',
+    'Quince',
+    'Clementine',
+    'Honeydew',
+    'Blackcurrant',
+    'Elderberry',
+    'Date',
+    'Rambutan',
+    'Soursop',
+    'Carambola',
+    'Cactus Fruit'
+  ];
+
+  List<String> listToView = [];
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _smartTextSearchPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    listToView = items;
   }
 
   @override
@@ -54,10 +83,34 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: ListView(
+          children: [
+            TextField(
+              controller: _searchTextController,
+            ),
+            IconButton(
+              onPressed: _onSearch, 
+              icon: const Icon(Icons.search),
+            ),
+            ...listToView.map<Widget>(
+              (e) => ListTile(
+                title: Text(e),
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  _onSearch(){
+    List<String> searchResults = orderBySimilarity(
+      _searchTextController.text, 
+      items, 
+      (index, item) => item
+    );
+    setState(() {
+      listToView = searchResults;
+    });
   }
 }
