@@ -7,6 +7,25 @@ class Pessoa {
 }
 
 void main() {
+  test("orderBySimilarity_aCharSearch_returnsAWordWithTheCharFirst", () {
+    final pessoas = [
+      Pessoa('Apple'),
+      Pessoa('Fig'),
+      Pessoa('Banana')
+    ];
+
+    const texto = 'A';
+
+    final pessoasOrdenadas = orderBySimilarity(
+      texto,
+      pessoas,
+      (i, pessoa) => pessoa.nome
+    );
+
+    String result = pessoasOrdenadas.map((p) => p.nome).toString();
+    expect(result, "(Apple, Banana, Fig)");
+  });
+
 
   test("orderBySimilarity Test", () {
     final pessoas = [
