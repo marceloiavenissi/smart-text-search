@@ -1,5 +1,6 @@
 import 'dart:math';
 
+/// Calculates the Levenshtein distance between two words.
 int wordsLevenshteinDistance(String word1, String word2) {
   final m = word1.length + 1;
   final n = word2.length + 1;
@@ -28,6 +29,7 @@ int wordsLevenshteinDistance(String word1, String word2) {
   return matrix[m - 1][n - 1];
 }
 
+/// Calculates the cosine similarity between two texts.
 double textCosineSimilarity(String text1, String text2) {
   // Separa as palavras em cada texto e as coloca em um conjunto para remover duplicatas
   final words1Set = text1.split(' ').toSet();

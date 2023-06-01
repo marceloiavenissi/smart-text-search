@@ -1,5 +1,6 @@
 import 'package:smart_text_search/smart_text_search/cos_similarity.dart';
 
+/// Sorts a list of items by similarity to a given text.
 List<T> orderBySimilarity<T>(
   String text,
   List<T> items,
