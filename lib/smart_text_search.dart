@@ -1,8 +1,15 @@
-
-import 'smart_text_search_platform_interface.dart';
+import 'package:smart_text_search/smart_text_search/sort_by_similarity.dart';
 
 class SmartTextSearch {
-  Future<String?> getPlatformVersion() {
-    return SmartTextSearchPlatform.instance.getPlatformVersion();
+  static List<T> search<T>(
+    String text,
+    List<T> items,
+    String Function(int index, T item) getString,
+  ) {
+    return orderBySimilarity(
+      text,
+      items,
+      getString,
+    );
   }
 }
