@@ -2,6 +2,8 @@ name: smart_text_search
 description: A powerful search plugin with efficient and accurate capabilities like 'Google Search' and 'Elasticsearch'. Operates on cached local data for fast and secure searching. Features advanced typo tolerance and word similarity recognition for enhanced results.
 version: 0.0.1
 homepage: https://pub.dev/packages/smart_text_search
+repository: https://github.com/marceloiavenissi/smart-text-search
+issue_tracker: https://github.com/marceloiavenissi/smart-text-search/issues
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
